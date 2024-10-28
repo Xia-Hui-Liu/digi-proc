@@ -44,13 +44,13 @@ const ProductCard: React.FC<{ product: Product; onAddToCart: () => void }> = ({ 
         </div>
       </div>
 
-      <div className="p-4 flex flex-col items-center"> {/* Center align items */}
+      <div className="p-4 flex flex-col items-center"> 
         <h2 className="text-xs font-bold text-center">{product.name}</h2>
         <p className='text-xs'>ratings</p>
-        <p className="text-yellow-500 text-center">{renderStars(product.rating)}</p> {/* Display stars */}
+        <p className="text-yellow-500 text-center">{renderStars(product.rating)}</p> 
         <button
           onClick={onAddToCart}
-          className="mt-2 bg-blue-500 text-white py-2 rounded w-full" // Adjusted to full width
+          className="mt-2 bg-blue-500 text-white py-2 rounded w-full" 
         >
           Add to Cart
         </button>
