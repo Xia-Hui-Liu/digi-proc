@@ -3,14 +3,8 @@ import ProductCard from '../components/ProductCard';
 import { fetchProducts } from '../services/api';
 import Navbar from '../components/Navbar';
 import { useCart } from '../context/CartContext';
+import { Product } from '../types/product';
 
-interface Product {
-  name: string;
-  price: number;
-  rating: number;
-  imageUrl: string;
-  color: string;
-}
 
 const Home: React.FC = () => {
   const { cart, addToCart } = useCart();

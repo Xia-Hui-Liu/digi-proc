@@ -2,14 +2,8 @@ import React from 'react';
 import Image from 'next/image';
 import '@fontsource/inter/600.css'; 
 import '@fontsource/inter/700.css'; 
+import { Product } from '../types/product';
 
-interface Product {
-  name: string;
-  price: number;
-  rating: number;
-  imageUrl: string;
-  color: string; 
-}
 
 const ProductCard: React.FC<{ product: Product; onAddToCart: () => void }> = ({ product, onAddToCart }) => {
  
