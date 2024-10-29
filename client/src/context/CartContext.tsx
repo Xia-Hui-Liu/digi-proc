@@ -1,29 +1,29 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-
-interface Product {
-  name: string;
-  price: number;
-  rating: number;
-  imageUrl: string;
-  color: string;
-}
+import { Product } from '../types/product';
 
 interface CartContextType {
   cart: Product[];
   addToCart: (product: Product) => void;
+  clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [cart, setCart] = useState<Product[]>([]);
-
-  useEffect(() => {
-    const savedCartItems = localStorage.getItem('cart');
-    if (savedCartItems) {
-      setCart(JSON.parse(savedCartItems));
+  const [cart, setCart] = useState<Product[]>(() => {
+    // Initialize state from session storage
+    if (typeof window !== 'undefined') {
+      const storedItems = sessionStorage.getItem('cart');
+      return storedItems ? JSON.parse(storedItems) : [];
     }
-  }, []);
+    return []; // Default to an empty array on server-side
+  });
+
+  
+  useEffect(() => {
+    // Sync the cart items with session storage whenever they change
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (product: Product) => {
     setCart((prev) => {
@@ -33,8 +33,12 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     });
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
   return (
-    <CartContext.Provider value={{cart, addToCart }}>
+    <CartContext.Provider value={{cart, addToCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );
