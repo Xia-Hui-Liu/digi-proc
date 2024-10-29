@@ -11,24 +11,21 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<Product[]>(() => {
-    // Initialize state from session storage
     if (typeof window !== 'undefined') {
       const storedItems = sessionStorage.getItem('cart');
       return storedItems ? JSON.parse(storedItems) : [];
     }
-    return []; // Default to an empty array on server-side
+    return []; 
   });
 
-  
   useEffect(() => {
-    // Sync the cart items with session storage whenever they change
     sessionStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
   const addToCart = (product: Product) => {
     setCart((prev) => {
       const updatedCart = [...prev, product];
-      localStorage.setItem('cart', JSON.stringify(updatedCart)); // Save to localStorage
+      localStorage.setItem('cart', JSON.stringify(updatedCart)); 
       return updatedCart;
     });
   };
