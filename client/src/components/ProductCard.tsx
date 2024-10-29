@@ -12,8 +12,7 @@ interface Product {
 }
 
 const ProductCard: React.FC<{ product: Product; onAddToCart: () => void }> = ({ product, onAddToCart }) => {
-  console.log(`Product: ${product.name}, Rating: ${product.rating}`);
-
+ 
   const renderStars = (rating: number) => {
     const stars = [];
     for (let i = 0; i < 5; i++) {
