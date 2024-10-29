@@ -4,7 +4,6 @@ import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css'; 
 import { Product } from '../types/product';
 
-
 const ProductCard: React.FC<{ product: Product; onAddToCart: () => void }> = ({ product, onAddToCart }) => {
  
   const renderStars = (rating: number) => {
