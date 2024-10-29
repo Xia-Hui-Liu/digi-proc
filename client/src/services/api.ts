@@ -9,3 +9,4 @@ export const fetchProducts = async () => {
         throw error;
     }
 }
+
