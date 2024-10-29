@@ -5,7 +5,6 @@ import Navbar from '../components/Navbar';
 import { useCart } from '../context/CartContext';
 import { Product } from '../types/product';
 
-
 const Home: React.FC = () => {
   const { cart, addToCart } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
@@ -14,7 +13,6 @@ const Home: React.FC = () => {
     fetchProducts().then(setProducts).catch(console.error);
   }, []);
 
- 
   return (
     <div className="container mx-auto px-4 py-8">
       <Navbar cartCount={cart.length} />
