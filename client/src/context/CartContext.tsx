@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 interface Product {
   name: string;
@@ -18,12 +18,23 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<Product[]>([]);
 
+  useEffect(() => {
+    const savedCartItems = localStorage.getItem('cart');
+    if (savedCartItems) {
+      setCart(JSON.parse(savedCartItems));
+    }
+  }, []);
+
   const addToCart = (product: Product) => {
-    setCart((prevCart) => [...prevCart, product]);
+    setCart((prev) => {
+      const updatedCart = [...prev, product];
+      localStorage.setItem('cart', JSON.stringify(updatedCart)); // Save to localStorage
+      return updatedCart;
+    });
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart }}>
+    <CartContext.Provider value={{cart, addToCart }}>
       {children}
     </CartContext.Provider>
   );
