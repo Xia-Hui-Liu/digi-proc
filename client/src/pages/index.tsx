@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
 import { fetchProducts } from '../services/api';
 import Navbar from '../components/Navbar';
+import { useCart } from '../context/CartContext';
 
 interface Product {
   name: string;
@@ -12,17 +13,14 @@ interface Product {
 }
 
 const Home: React.FC = () => {
+  const { cart, addToCart } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
-  const [cart, setCart] = useState<Product[]>([]);
 
   useEffect(() => {
     fetchProducts().then(setProducts).catch(console.error);
   }, []);
 
-  const handleAddToCart = (product: Product) => {
-    setCart((prevCart) => [...prevCart, product]);
-  };
-
+ 
   return (
     <div className="container mx-auto px-4 py-8">
       <Navbar cartCount={cart.length} />
@@ -32,7 +30,7 @@ const Home: React.FC = () => {
             <ProductCard
               key={index}
               product={product}
-              onAddToCart={() => handleAddToCart(product)}
+              onAddToCart={() => addToCart(product)}
             />
           ))}
         </div>
