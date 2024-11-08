@@ -25,7 +25,6 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const addToCart = (product: Product) => {
     setCart((prev) => {
       const updatedCart = [...prev, product];
-      localStorage.setItem('cart', JSON.stringify(updatedCart)); 
       return updatedCart;
     });
   };

@@ -3,7 +3,7 @@ import { useCart } from '../context/CartContext';
 import Image from 'next/image';
 
 const Cart: React.FC = () => {
-  const { cart } = useCart();
+  const { cart, clearCart } = useCart();
 
   const totalCost = useMemo(() => 
     cart.reduce((sum, item) => sum + item.price, 0), 
@@ -38,6 +38,9 @@ const Cart: React.FC = () => {
         <div className="font-semibold text-gray-700">
           Total: {totalCost.toLocaleString('sv-SE')} SEK
         </div>
+        <button onClick={clearCart} className="bg-[#DC840A] text-white py-2 px-4 rounded-md hover:bg-blue-600">
+          Delete all
+        </button>
         <button className="bg-[#DC840A] text-white py-2 px-4 rounded-md hover:bg-blue-600">
           Checkout
         </button>
